@@ -20,6 +20,7 @@ class UserService
     return 'Hello my name is ' +  @injectedDependency.getName + ', and I am alive!'
   end
 
+
   def sayHelloIAmAlivePlus(more)
     return 'Hello my name is ' +  @injectedDependency.getNamePlus(more) + ', and I am alive!'
   end
