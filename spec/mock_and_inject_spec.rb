@@ -1,31 +1,5 @@
 require 'rspec'
-require_relative '../app/Timer'
 require 'date'
-
-class InjectedDependency
-  def getName
-    return 'InjectedDependency'
-  end
-
-  def getNamePlus(extra)
-    return "#{getName} #{extra}"
-  end
-
-end
-
-class CLassWithInjectedDependencies
-  def initialize(dependency)
-    @injectedDependency = dependency
-  end
-  def sayHelloIAmAlive
-    return 'Hello my name is ' +  @injectedDependency.getName + ', and I am alive!'
-  end
-
-  def sayHelloIAmAlivePlus(more)
-    return 'Hello my name is ' +  @injectedDependency.getNamePlus(more) + ', and I am alive!'
-  end
-end
-
 
 RSpec.describe 'CLassWithInjectedDependencies' do
   describe 'CLassWithInjectedDependencies' do
@@ -72,8 +46,8 @@ RSpec.describe 'CLassWithInjectedDependencies' do
 
     it 'with params' do
       # given
-      dependency = double("someThingy")
       extraStringParam = 'someExtra'
+      dependency = double("someThingy")
       getNamePlusResponse = 'Some Freaky Mock'
       expect(dependency).to(receive(:getNamePlus).with(extraStringParam)).and_return(getNamePlusResponse)
 
@@ -84,5 +58,31 @@ RSpec.describe 'CLassWithInjectedDependencies' do
       # then
       expect(actual).to eq("Hello my name is #{getNamePlusResponse}, and I am alive!")
     end
+  end
+end
+
+
+
+class InjectedDependency
+  def getName
+    return 'InjectedDependency'
+  end
+
+  def getNamePlus(extra)
+    return "#{getName} #{extra}"
+  end
+
+end
+
+class CLassWithInjectedDependencies
+  def initialize(dependency)
+    @injectedDependency = dependency
+  end
+  def sayHelloIAmAlive
+    return 'Hello my name is ' +  @injectedDependency.getName + ', and I am alive!'
+  end
+
+  def sayHelloIAmAlivePlus(more)
+    return 'Hello my name is ' +  @injectedDependency.getNamePlus(more) + ', and I am alive!'
   end
 end
