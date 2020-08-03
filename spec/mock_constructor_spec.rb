@@ -1,8 +1,6 @@
 require 'rspec'
 require 'date'
 
-
-
 RSpec.describe 'Mock new call rather than injecting' do
     it 'no params' do
       # given
@@ -44,7 +42,6 @@ class InjectedDependency
   def getNamePlus(extra)
     return "#{getName} #{extra}"
   end
-
 end
 
 class UserService
