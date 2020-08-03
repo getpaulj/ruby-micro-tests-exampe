@@ -2,7 +2,7 @@ require 'rspec'
 require 'date'
 
 RSpec.describe 'CLassWithInjectedDependencies' do
-  describe 'CLassWithInjectedDependencies' do
+  describe 'No Mocks' do
 
     it 'no params' do
       # given
@@ -30,18 +30,19 @@ RSpec.describe 'CLassWithInjectedDependencies' do
     end
   end
 
-  describe 'CLassWithInjectedDependencies' do
+  describe 'With Mocks' do
     it 'no params' do
       # given
       dependency = double("someThingy")
-      expect(dependency).to receive(:getName).and_return('Some Freaky Mock')
+      someFreakyMockStr = 'Some Freaky Mock'
+      expect(dependency).to receive(:getName).and_return(someFreakyMockStr)
 
       # when
       unitUnderTest = CLassWithInjectedDependencies.new(dependency)
       actual = unitUnderTest.sayHelloIAmAlive
 
       # then
-      expect(actual).to eq('Hello my name is Some Freaky Mock, and I am alive!')
+      expect(actual).to eq("Hello my name is #{someFreakyMockStr}, and I am alive!")
     end
 
     it 'with params' do
