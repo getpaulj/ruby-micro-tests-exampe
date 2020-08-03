@@ -1,6 +1,6 @@
 RSpec.describe 'LoginTest' do
 
-  before(:all) do
+  before(:each) do
     @login_repo_mock = double('login_repo_mock')
     @login_factory_mock = double('login_factory_mock')
     @user_repo_mock = double('user_repo_mock')
