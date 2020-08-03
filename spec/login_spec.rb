@@ -1,23 +1,26 @@
 RSpec.describe 'LoginTest' do
-  it 'when called correctly' do
 
+  before(:all) do
+    @login_repo_mock = double('login_repo_mock')
+    @login_factory_mock = double('login_factory_mock')
+    @user_repo_mock = double('user_repo_mock')
+    @login_service = LoginService.new(@user_repo_mock, @login_factory_mock, @login_repo_mock)
+  end
+
+  it 'when called correctly' do
     # given
     login_name = 'someName'
-
     user = double('user_mock')
     expected_login = double('login_mock')
 
-    login_repo_mock = double('login_repo_mock')
-    login_factory_mock = double('login_factory_mock')
-    user_repo_mock = double('user_repo_mock')
-    login_service = LoginService.new(user_repo_mock, login_factory_mock, login_repo_mock)
-
-    expect(user_repo_mock).to(receive(:get).with(login_name)).and_return(user)
-    expect(login_factory_mock).to(receive(:create).with(user)).and_return(expected_login)
-    expect(login_repo_mock).to(receive(:save).with(expected_login)).and_return(expected_login)
+    expect(@user_repo_mock).to(receive(:get).with(login_name)).and_return(user)
+    expect(@login_factory_mock).to(receive(:create).with(user)).and_return(expected_login)
+    expect(@login_repo_mock).to(receive(:save).with(expected_login)).and_return(expected_login)
 
     # when
-    actual = login_service.login(login_name)
+    actual = @login_service.login(login_name)
+
+    # then
     expect(actual).to eq(expected_login)
   end
 end
